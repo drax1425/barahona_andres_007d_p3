@@ -1,80 +1,142 @@
 import numpy as np
+import os
+# time.slip ()
 import time
-cuarto = np.zeros(5,int)
-lista_ruts = ()
-lista_nombre_mascota =()
-lista_nombre = ()
-lista_habitacion = (1,2,3,4,5,6,7,8,9,10)
-acumulador = 0
-def validar_rut():
+def fecha_inicio():
     while True:
         try:
-            rut = int(input("Ingrese rut: "))
-            if rut >= 1000000 and rut <= 99999999:
-                return rut
+            fecha_inicio = int(input("ingrese la fecha que prendio el programa: "))
+            if fecha_inicio == "-":
+                return fecha_inicio
             else:
-                print("ERROR! RUT ENTRE 1000000 Y 99999999!")
+                print ("ingrese su fecha con -")
         except:
-            print("ERROR! DEBE INGRESAR UN NÚMERO ENTERO!")
-
-def validar_nombre():
-    while True:
-        nom = input("Ingrese nombre: ")
-        if len(nom.strip()) >= 3 and nom.isalpha():
-            return nom
-        else:
-            print("ERROR! DEBE TENER AL MENOS 3 LETRAS!")
+            print("ingrese numeros enteros ")
+escenario = np.zeros((10,10),int)
+lista_numeros=(1,2,3,4,5,6,7,8,9,10)
+lista_letras = ["A B C D E F G H I J"]
+platino =120000
+gold = 80000
+silver = 50000
+lista_ruts = []
+lista_filas = []
+lista_columnas = []
+def menu():
+    print("""Menu:
+    |-------------------------------------------|
+    |        1.Comprar entrada                  |
+    |-------------------------------------------|
+    |        2.Mostrar ubicaciones              |
+    |-------------------------------------------|
+    |        3.Ver listado de asistentes        |
+    |-------------------------------------------|
+    |        4.Mostrar ganancias totales        |
+    |-------------------------------------------|
+    |    5.Salir                                |
+    |-------------------------------------------|""")
 
 def validar_opcion():
     while True:
         try:
-            opc = int(input("Ingrese opción: "))
-            if opc in(1,2,3,4):
+            opc =int (input("    ingrese una de las opciones: "))
+            if opc in (1,2,3,4,5):
                 return opc
             else:
-                print("ERROR! OPCIÓN INCORRECTA!")
+                print("ingrese una de las 5 opciones dadas")
         except:
-            print("ERROR! DEBE INGRESAR UN NÚMERO!")
+            print("ingrese numeros enteros")
 
-def validar_nombre_mascota():
+#mostrar ubicacion 
+def mostrar_ubicaciones(): 
+    print("        A B C D E F G H I J")
+    for x in range(10):
+        print("fila",lista_numeros[x],end="\t")
+        for y in range (10):
+            print(escenario[x][y],end=" ")
+        print()
+def validar_rut():
     while True:
-        nom_mascota = input("Ingrese nombre de su mascota: ")
-        if len(nom_mascota.strip()) >= 3 and nom_mascota.isalpha():
-            return nom_mascota
-        else:
-            print("ERROR! DEBE TENER AL MENOS 3 LETRAS!")
-
-def dias_en_guarderia():
-    try:
-        dias_guarderia= int(input("ingrese la cantidad de dias : "))
-    except:
-        print("ingrese solo numeros enteros")
-    acumulador = acumulador + dias_guarderia
-    total = acumulador *15000
-    print(f"su total a pagar es {total}")
+        try:
+            rut = int(input("ingrese su rut sin numeros verificador ni puntos: "))
+            if rut >10000000 and rut <99999999:
+                return rut
+            else:
+                print("ingrese el rut sin numero verificador ni puntos")
+        except:
+            print("ingrese solo numeros enteros ")
+def validar_tipo_entrada ():
+    while True:
+        try:
+            entrada = int (input("que entrada desa: "))
+            if entrada in (1,2,3):
+                return entrada
+            else:
+                print("solo puede unas de las 3 opciones")
+        except:
+            print("ingrese numeros enteros")
+def validar_cantidad_platino ():
+    while True:
+        try:    
+                cantidad_platino =int(input("ingrese la cantidad 1 a 3: "))
+                if cantidad_platino in (1,2,3):
+                    return cantidad_platino
+                else:
+                    print("Solo puede comprar hasta 3 entradas")
+        except:
+            print("ingrese numeros enteros")
+def validar_cantidad_gold():
+    while True:
+        try:    
+            cantidad_gold =int(input("ingrese la cantidad 1 a 3: "))
+            if cantidad_gold in (1,2,3):
+                return
+            else:
+                print("Solo puede comprar hasta 3 entradas")
+        except:
+            print("ingrese numeros enteros")
+def validar_cantidad_silver():
+    while True:
+        try:    
+            cantidad_silver =int(input("ingrese la cantidad 1 a 3: "))
+            if cantidad_silver in (1,2,3):
+                return
+            else:
+                print("Solo puede comprar hasta 3 entradas")
+        except:
+            print("ingrese numeros enteros")
+def comprar():
+    print(f"""tipo entrada:
+    1.Platinum {platino} (fila 1 y 2)
+    2.Gold     {gold}  (fila 3 a 5)
+    3.Silver   {silver}  (fila 6  a 10)""")
     
-
-
-def salir():
-    print("gracias por confiar en nosotros ")
-    time.time(2)
-    exit()
+    entrada = validar_tipo_entrada()
+    if entrada ==1:
+        cantidad_platino = validar_cantidad_platino()
+        total_platino = cantidad_platino * platino
+        print(f"Su total a pagar es {total_platino}")
+    elif entrada == 2:
+        cantidad_gold = validar_cantidad_gold()
+        total_gold = cantidad_gold * gold
+        print(f"Su total a pagar es {total_gold}")
+    elif entrada == 3:
+        cantidad_silver = validar_cantidad_silver()
+        total_silver = cantidad_silver * silver
+        print(f"Su total a pagar es {total_silver}")
     
-def buscar():
-    ruts = input("ingrese su rut para buscar su mascota: ")
-    if ruts == lista_ruts:
-        print("su mascota si esta ")
-    else:
-        print("no estas registrado")
-
-
-
-def registrar():
+    mostrar_ubicaciones()
+    if 0 not in escenario:
+        print("No quedan reservas")
+    fila = input ("ingrese la su fila: ")
+    columna = input ("ingrese la letra de la columna: ")
+    
+      
     rut = validar_rut()
-    nom= validar_nombre()
-    nom_mascota= validar_nombre_mascota ()
-    dias_guarderia = dias_en_guarderia()
-    print(cuarto)
-    lista_ruts.index = rut
-    lista_nombre_mascota.index = nom_mascota
-    lista_nombre.index = nom
+    lista_ruts.append(rut)
+    lista_filas.append(fila)
+    lista_columnas.append(columna)
+
+#opcion 4 
+def ganancias_totales():
+    print(f"""Tipo entrada | Cantidad | Total
+Platinum $ {platino} |    """)
